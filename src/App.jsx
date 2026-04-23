@@ -234,6 +234,7 @@ export default function App() {
           <EmptyState />
         )}
       </section>
+      <DisclaimerFooter />
     </main>
   );
 }
@@ -347,6 +348,21 @@ function FeaturePill({ icon: Icon, label }) {
       <Icon className="h-5 w-5 text-cyan-200" />
       {label}
     </div>
+  );
+}
+
+function DisclaimerFooter() {
+  return (
+    <footer className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+      <div className="rounded-[1.5rem] border border-cyan-300/15 bg-black/35 p-5 text-xs leading-6 text-cyan-100/60 shadow-[0_0_24px_rgba(14,165,233,0.1)] backdrop-blur">
+        <p className="font-bold uppercase tracking-[0.24em] text-cyan-200/80">Important Disclaimer</p>
+        <p className="mt-3">
+          Kairo Scholar is a free study aid for learners age 13+. Do not upload private, sensitive, or confidential information.
+          Only upload notes or materials you own or have permission to use. Use generated guides, flashcards, and quizzes for learning and review,
+          not cheating or submitting work that is not yours. Free Study Mode is enabled by default and does not use paid AI calls.
+        </p>
+      </div>
+    </footer>
   );
 }
 

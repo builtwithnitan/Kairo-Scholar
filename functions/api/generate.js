@@ -1,3 +1,5 @@
+import { fallbackStudyGuide as generateFreeStudyGuide } from '../../src/lib/analyzer.js';
+
 export async function onRequestPost(context) {
   const { request, env } = context;
   const body = await request.json().catch(() => ({}));
@@ -8,7 +10,7 @@ export async function onRequestPost(context) {
   }
 
   if (env.KAIRO_ENABLE_PAID_AI !== 'true' || !env.OPENAI_API_KEY) {
-    return json({ freeMode: true, ...fallbackStudyGuide(notes) });
+    return json({ freeMode: true, ...generateFreeStudyGuide(notes) });
   }
 
   try {
@@ -32,7 +34,7 @@ export async function onRequestPost(context) {
     const text = payload.output?.flatMap((item) => item.content || []).find((item) => item.type === 'output_text')?.text || '{}';
     return json({ id: crypto.randomUUID(), createdAt: new Date().toISOString(), ...JSON.parse(text) });
   } catch (error) {
-    return json({ freeMode: true, ...fallbackStudyGuide(notes) });
+    return json({ freeMode: true, ...generateFreeStudyGuide(notes) });
   }
 }
 

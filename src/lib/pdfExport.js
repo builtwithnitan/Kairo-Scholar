@@ -31,7 +31,10 @@ export async function exportGuidePdf(guide) {
   write('Flashcards', 15, 'bold', 6);
   guide.flashcards?.forEach((card, index) => write(`${index + 1}. ${card.front}\nAnswer: ${card.back}`, 10, 'normal', 5));
   write('Quiz', 15, 'bold', 6);
-  guide.quiz?.forEach((quiz, index) => write(`${index + 1}. ${quiz.question}\nAnswer: ${quiz.answer}. ${quiz.explanation}`, 10, 'normal', 5));
+  guide.quiz?.forEach((quiz, index) => {
+    const choices = quiz.choices?.map((choice, choiceIndex) => `${String.fromCharCode(65 + choiceIndex)}. ${choice}`).join('\n') || '';
+    write(`${index + 1}. ${quiz.question}\n${choices}\nAnswer: ${quiz.answer}. ${quiz.explanation}`, 10, 'normal', 5);
+  });
   write('Important Terms', 15, 'bold', 6);
   guide.terms?.forEach((term) => write(`${term.term}: ${term.definition}`, 10, 'normal', 3));
 

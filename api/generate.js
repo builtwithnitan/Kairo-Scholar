@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { fallbackStudyGuide as generateFreeStudyGuide } from '../src/lib/analyzer.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   if (process.env.KAIRO_ENABLE_PAID_AI !== 'true' || !process.env.OPENAI_API_KEY) {
-    return res.status(200).json({ freeMode: true, ...fallbackStudyGuide(notes) });
+    return res.status(200).json({ freeMode: true, ...generateFreeStudyGuide(notes) });
   }
 
   try {
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error(error);
-    return res.status(200).json({ freeMode: true, ...fallbackStudyGuide(notes) });
+    return res.status(200).json({ freeMode: true, ...generateFreeStudyGuide(notes) });
   }
 }
 

@@ -64,12 +64,15 @@ function loadUsers() {
 }
 
 function normalizeUsername(username) {
-  return String(username || '').trim().toLowerCase().replace(/\s+/g, '-');
+  return String(username || '').trim().toLowerCase().replace(/\s+/g, '');
 }
 
 function validateCredentials(username, password) {
-  if (!/^[a-z0-9_-]{3,24}$/.test(username)) {
-    throw new Error('Username must be 3-24 characters using letters, numbers, dashes, or underscores.');
+  const isHandle = /^[a-z0-9_-]{3,32}$/.test(username);
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(username);
+
+  if (!isHandle && !isEmail) {
+    throw new Error('Use a valid email address or a 3-32 character username.');
   }
   if (String(password || '').length < 8) {
     throw new Error('Password must be at least 8 characters.');

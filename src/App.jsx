@@ -305,10 +305,10 @@ function AuthGate({ onAuthenticated }) {
             <button type="button" onClick={() => setMode('register')} className={`flex-1 rounded-xl px-4 py-3 font-bold transition ${mode === 'register' ? 'bg-cyan-400/20 text-white shadow-[0_0_20px_rgba(14,165,233,0.35)]' : 'text-cyan-100/60'}`}>Create account</button>
           </div>
 
-          <label className="mt-6 block text-sm font-bold text-cyan-100/80">Username</label>
+          <label className="mt-6 block text-sm font-bold text-cyan-100/80">Email or username</label>
           <div className="mt-2 flex items-center gap-3 rounded-2xl border border-cyan-300/20 bg-black/35 px-4 py-3">
             <User className="h-5 w-5 text-cyan-200/70" />
-            <input value={username} onChange={(event) => setUsername(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-cyan-100/35" placeholder="kairo-user" autoComplete="username" />
+            <input value={username} onChange={(event) => setUsername(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-cyan-100/35" placeholder="student@email.com" autoComplete="username" />
           </div>
 
           <label className="mt-5 block text-sm font-bold text-cyan-100/80">Password</label>

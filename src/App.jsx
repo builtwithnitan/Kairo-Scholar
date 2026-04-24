@@ -130,7 +130,7 @@ export default function App() {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f5f1ea] text-slate-900 transition dark:bg-[#111827] dark:text-slate-50">
+    <main className="min-h-screen overflow-hidden bg-[#ebe6dc] text-slate-900 transition dark:bg-[#111827] dark:text-slate-50">
       <WorkspaceBackground />
       <Nav
         dark={dark}
@@ -143,12 +143,11 @@ export default function App() {
         }}
       />
 
-      <section className="mx-auto grid min-h-[720px] w-full max-w-7xl gap-10 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:px-8">
+      <section className="mx-auto grid min-h-[720px] w-full max-w-7xl gap-10 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:px-8">
         <motion.aside initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
-          <div className="p-2">
-            <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-xl font-black text-white dark:bg-cyan-200 dark:text-slate-950">K</div>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">Free Study Workspace</p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight">Kairo Scholar</h1>
+          <div className="p-2 lg:pt-20">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Free Study Workspace</p>
+            <h1 className="mt-2 text-4xl font-extrabold tracking-tight">Kairo Scholar</h1>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
               A calmer notebook-style workspace for turning notes into summaries, study guides, quizzes, flashcards, and review sheets.
             </p>
@@ -163,8 +162,8 @@ export default function App() {
         </motion.aside>
 
         <motion.div initial={{ opacity: 0, scale: 0.98, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-8">
-          <div className="p-2 sm:p-3">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="p-2 text-center sm:p-3">
+            <div className="flex flex-col items-center gap-4">
               <div>
                 <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Start with notes or a document</p>
                 <h2 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">Build a study notebook from one upload.</h2>
@@ -290,7 +289,7 @@ function AuthGate({ onAuthenticated }) {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f5f1ea] text-slate-900 dark:bg-[#111827] dark:text-slate-50">
+    <main className="relative min-h-screen overflow-hidden bg-[#ebe6dc] text-slate-900 dark:bg-[#111827] dark:text-slate-50">
       <WorkspaceBackground />
       <section className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
         <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="text-center lg:text-left">
@@ -345,8 +344,8 @@ function AuthGate({ onAuthenticated }) {
 
 function WorkspaceBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#f5f1ea] dark:bg-[#111827]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(215,227,255,0.7),transparent_24%),linear-gradient(180deg,#f5f1ea,#f1ede6)] dark:bg-[radial-gradient(circle_at_top_left,rgba(30,41,59,0.9),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.12),transparent_24%),linear-gradient(180deg,#111827,#0f172a)]" />
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#ebe6dc] dark:bg-[#111827]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.58),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(212,222,242,0.36),transparent_20%),linear-gradient(180deg,#ebe6dc,#e2dccf)] dark:bg-[radial-gradient(circle_at_top_left,rgba(30,41,59,0.9),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.12),transparent_24%),linear-gradient(180deg,#111827,#0f172a)]" />
     </div>
   );
 }
@@ -377,15 +376,17 @@ function DisclaimerFooter() {
 
 function Nav({ dark, user, onToggle, onLogout }) {
   return (
-    <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-      <div className="flex items-center gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-900 text-white dark:bg-cyan-200 dark:text-slate-950"><span className="text-2xl font-black">K</span></div>
+    <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-4 py-5 sm:px-6 lg:px-8">
+      <div className="justify-self-start">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Free Study Workspace</p>
+      </div>
+      <div className="text-center">
+        <p className="text-2xl font-black tracking-tight">Kairo Scholar</p>
         <div>
-          <p className="text-xl font-black tracking-tight">Kairo Scholar</p>
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">astute-hoop-vision-pro.com</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">astute-hoop-vision-pro.com</p>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-self-end gap-2">
         <span className="hidden rounded-full border border-black/8 bg-white/80 px-4 py-2 text-sm font-bold text-slate-600 sm:inline-flex dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-300">{user.username}</span>
         <button onClick={onToggle} className="touch-target rounded-full border border-black/8 bg-white/80 p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900/70" aria-label="Toggle dark mode">
           {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -433,7 +434,7 @@ function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers
       <Card large>
         <h3 className="text-3xl font-black tracking-tight">Study Guide</h3>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
-          {guide.studyGuide.map((section, index) => <div key={`${section.heading}-${index}`} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-5 dark:border-white/10 dark:bg-slate-950/50"><h4 className="text-xl font-extrabold">{section.heading}</h4><ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-300">{section.bullets.map((bullet, bulletIndex) => <li key={bulletIndex}>- {bullet}</li>)}</ul><button onClick={() => onSimplify(section.bullets[0])} className="mt-4 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-200">Simplify this concept</button></div>)}
+          {guide.studyGuide.map((section, index) => <div key={`${section.heading}-${index}`} className="rounded-2xl bg-[rgba(255,255,255,0.58)] p-5 dark:bg-slate-950/50"><h4 className="text-xl font-extrabold">{section.heading}</h4><ul className="mt-3 space-y-2 text-slate-700 dark:text-slate-300">{section.bullets.map((bullet, bulletIndex) => <li key={bulletIndex}>- {bullet}</li>)}</ul><button onClick={() => onSimplify(section.bullets[0])} className="mt-4 rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-200">Simplify this concept</button></div>)}
         </div>
         {simpleExplanation && <p className="mt-5 rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 font-semibold text-slate-700 dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-200">{simpleExplanation}</p>}
       </Card>
@@ -441,25 +442,25 @@ function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers
       <Card large>
         <h3 className="text-3xl font-black tracking-tight">Flashcards</h3>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          {guide.flashcards.map((card, index) => <button key={index} onClick={() => setActiveCard(activeCard === index ? null : index)} className="min-h-44 rounded-3xl border border-slate-200 bg-[#faf7f2] p-5 text-left shadow-[0_18px_40px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 dark:border-white/10 dark:bg-slate-950/50"><p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Card {index + 1}</p><p className="mt-4 text-xl font-extrabold">{activeCard === index ? card.back : card.front}</p><p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Tap to flip</p></button>)}
+          {guide.flashcards.map((card, index) => <button key={index} onClick={() => setActiveCard(activeCard === index ? null : index)} className="min-h-44 rounded-3xl bg-[rgba(255,255,255,0.6)] p-5 text-left shadow-[0_18px_40px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 dark:bg-slate-950/50"><p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Card {index + 1}</p><p className="mt-4 text-xl font-extrabold">{activeCard === index ? card.back : card.front}</p><p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Tap to flip</p></button>)}
         </div>
       </Card>
 
       <Card large>
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h3 className="text-3xl font-black tracking-tight">Practice Quiz</h3><button onClick={onHarderQuiz} className="touch-target inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold dark:border-white/10 dark:bg-slate-900/70"><RotateCcw className="h-4 w-4" />Make harder questions</button></div>
-        <div className="mt-5 space-y-4">{guide.quiz.map((item, index) => <div key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-5 dark:border-white/10 dark:bg-slate-950/50"><p className="font-extrabold">{index + 1}. {item.question}</p><div className="mt-3 grid gap-2">{item.choices.map((choice, choiceIndex) => { const letter = String.fromCharCode(65 + choiceIndex); const picked = quizAnswers[index] === letter; return <button key={letter} onClick={() => setQuizAnswers({ ...quizAnswers, [index]: letter })} className={`rounded-xl border p-3 text-left text-sm transition ${picked ? 'border-slate-900 bg-white dark:border-cyan-200 dark:bg-slate-900' : 'border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900/70'}`}><strong>{letter}.</strong> {choice}</button>; })}</div>{quizAnswers[index] && <p className="mt-3 text-sm font-semibold text-slate-500 dark:text-slate-400">Answer: {item.answer}. {item.explanation}</p>}</div>)}</div>
+        <div className="mt-5 space-y-4">{guide.quiz.map((item, index) => <div key={index} className="rounded-2xl bg-[rgba(255,255,255,0.6)] p-5 dark:bg-slate-950/50"><p className="font-extrabold">{index + 1}. {item.question}</p><div className="mt-3 grid gap-2">{item.choices.map((choice, choiceIndex) => { const letter = String.fromCharCode(65 + choiceIndex); const picked = quizAnswers[index] === letter; return <button key={letter} onClick={() => setQuizAnswers({ ...quizAnswers, [index]: letter })} className={`rounded-xl p-3 text-left text-sm transition ${picked ? 'bg-white dark:bg-slate-900' : 'bg-[rgba(255,255,255,0.7)] dark:bg-slate-900/70'}`}><strong>{letter}.</strong> {choice}</button>; })}</div>{quizAnswers[index] && <p className="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-400">Answer: {item.answer}. {item.explanation}</p>}</div>)}</div>
       </Card>
 
       <Card large>
         <h3 className="text-3xl font-black tracking-tight">Important Vocabulary</h3>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">{guide.terms.map((term, index) => <div key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 dark:border-white/10 dark:bg-slate-950/50"><p className="font-extrabold text-slate-800 dark:text-slate-100">{term.term}</p><p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{term.definition}</p></div>)}</div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">{guide.terms.map((term, index) => <div key={index} className="rounded-2xl bg-[rgba(255,255,255,0.58)] p-4 dark:bg-slate-950/50"><p className="font-extrabold text-slate-800 dark:text-slate-100">{term.term}</p><p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{term.definition}</p></div>)}</div>
       </Card>
     </motion.div>
   );
 }
 
 function Section({ title, items }) {
-  return <Card large><h3 className="text-3xl font-black tracking-tight">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="border-b border-slate-200 pb-4 text-lg leading-8 text-slate-600 dark:border-white/10 dark:text-slate-300">{item}</p>)}</div></Card>;
+  return <Card large><h3 className="text-3xl font-black tracking-tight">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="border-b border-slate-300 pb-4 text-lg leading-8 text-slate-700 dark:border-white/10 dark:text-slate-300">{item}</p>)}</div></Card>;
 }
 
 function Card({ children, large = false }) {

@@ -130,8 +130,8 @@ export default function App() {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#020b16] text-cyan-50 transition dark:bg-[#020b16] dark:text-cyan-50">
-      <CyberBackground />
+    <main className="min-h-screen overflow-hidden bg-[#f5f1ea] text-slate-900 transition dark:bg-[#111827] dark:text-slate-50">
+      <WorkspaceBackground />
       <Nav
         dark={dark}
         user={currentUser}
@@ -143,71 +143,82 @@ export default function App() {
         }}
       />
 
-      <section className="mx-auto flex min-h-[720px] w-full max-w-7xl flex-col items-center justify-center px-4 pb-12 pt-8 text-center sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, scale: 0.96, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.7 }} className="w-full max-w-5xl">
-          <div className="mx-auto mb-5 grid h-28 w-28 place-items-center rounded-[2rem] border border-cyan-300/50 bg-cyan-300/10 shadow-[0_0_70px_rgba(14,165,233,0.8)] backdrop-blur md:h-36 md:w-36">
-            <span className="font-cyber text-6xl font-black text-white drop-shadow-[0_0_24px_rgba(125,211,252,1)] md:text-8xl">K</span>
+      <section className="mx-auto grid min-h-[720px] w-full max-w-7xl gap-8 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:px-8">
+        <motion.aside initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+          <div className="rounded-[2rem] border border-black/8 bg-white/85 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80">
+            <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-xl font-black text-white dark:bg-cyan-200 dark:text-slate-950">K</div>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">Free Study Workspace</p>
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight">Kairo Scholar</h1>
+            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              A calmer notebook-style workspace for turning notes into summaries, study guides, quizzes, flashcards, and review sheets.
+            </p>
           </div>
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.55em] text-cyan-200/80 md:text-sm">Free Study Mode Generator</p>
-          <h1 className="font-cyber text-5xl font-black tracking-wide text-white drop-shadow-[0_0_22px_rgba(56,189,248,0.75)] sm:text-7xl lg:text-8xl">
-            Kairo Scholar
-          </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-cyan-100/78 sm:text-xl">
-            Free Study Mode for students, self-learners, tutors, and teams. Upload notes, ask Kairo anything, and turn material into guides, summaries, flashcards, quizzes, and key concepts without paid AI usage.
-          </p>
-
-          <div className="mx-auto mt-9 max-w-3xl rounded-full border border-cyan-300/60 bg-black/35 p-2 shadow-[0_0_36px_rgba(14,165,233,0.4)] backdrop-blur">
-            <div className="flex items-center gap-3">
-              <input
-                value={notes}
-                onChange={(event) => setNotes(event.target.value)}
-                placeholder="Ask Kairo Scholar anything..."
-                className="min-h-14 flex-1 rounded-full bg-transparent px-5 text-left text-base text-cyan-50 outline-none placeholder:text-cyan-100/60 sm:text-lg"
-              />
-              <button onClick={generateGuide} disabled={loading || notes.trim().length < 40} className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-cyan-200/80 bg-cyan-400/20 text-white shadow-[0_0_26px_rgba(56,189,248,0.75)] transition hover:scale-105 disabled:opacity-50">
-                <Sparkles className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-8 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             <FeaturePill icon={BookOpen} label="Study Guide" />
             <FeaturePill icon={BrainCircuit} label="Summaries" />
             <FeaturePill icon={Save} label="Flashcards" />
             <FeaturePill icon={ShieldCheck} label="Quizzes" />
             <FeaturePill icon={Sparkles} label="Key Concepts" />
           </div>
-        </motion.div>
+        </motion.aside>
 
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18, duration: 0.6 }} className="mt-10 w-full max-w-5xl rounded-[2rem] border border-cyan-300/25 bg-slate-950/70 p-4 text-left shadow-[0_0_55px_rgba(14,165,233,0.18)] backdrop-blur-xl sm:p-6">
-          <div className="rounded-[1.5rem] border border-dashed border-cyan-300/40 bg-cyan-400/5 p-5 text-center">
-            <input id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
-            <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-cyan-200/60 bg-cyan-400/15 px-6 py-4 text-sm font-extrabold text-cyan-50 shadow-[0_0_30px_rgba(14,165,233,0.35)] transition hover:-translate-y-0.5 hover:bg-cyan-400/25">
-              <FileUp className="h-5 w-5" />
-              Upload notes
-            </label>
-            <p className="mt-3 text-sm text-cyan-100/70">Supports TXT, PDF, and DOCX. Paste longer notes below for stronger results.</p>
+        <motion.div initial={{ opacity: 0, scale: 0.98, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
+          <div className="rounded-[2rem] border border-black/8 bg-white/88 p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80 sm:p-7">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Start with notes or a document</p>
+                <h2 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">Build a study notebook from one upload.</h2>
+              </div>
+              <div className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                Free Study Mode
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-[#faf7f2] p-2 dark:border-white/10 dark:bg-slate-950/70">
+              <div className="flex items-center gap-3">
+                <input
+                  value={notes}
+                  onChange={(event) => setNotes(event.target.value)}
+                  placeholder="Ask Kairo Scholar anything..."
+                  className="min-h-14 flex-1 rounded-full bg-transparent px-5 text-left text-base outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500 sm:text-lg"
+                />
+                <button onClick={generateGuide} disabled={loading || notes.trim().length < 40} className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-slate-900 text-white transition hover:scale-105 disabled:opacity-50 dark:bg-cyan-200 dark:text-slate-950">
+                  <Sparkles className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <textarea
-            value={notes}
-            onChange={(event) => setNotes(event.target.value)}
-            placeholder={starterNotes}
-            className="mt-4 min-h-[270px] w-full resize-y rounded-[1.5rem] border border-cyan-300/20 bg-black/35 p-5 text-base leading-7 text-cyan-50 outline-none transition placeholder:text-cyan-100/45 focus:border-cyan-300 focus:ring-4 focus:ring-cyan-300/15 sm:text-lg"
-          />
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-            <button onClick={generateGuide} disabled={loading} className="touch-target inline-flex flex-1 items-center justify-center gap-3 rounded-2xl border border-cyan-200/60 bg-cyan-400/20 px-6 py-4 text-base font-extrabold text-white shadow-[0_0_34px_rgba(14,165,233,0.35)] transition hover:-translate-y-0.5 hover:bg-cyan-400/30 disabled:cursor-not-allowed disabled:opacity-60">
-              <Sparkles className="h-5 w-5" />
-              {loading ? 'Generating...' : 'Generate Study Guide'}
-            </button>
-            <button onClick={() => setNotes(starterNotes)} className="touch-target rounded-2xl border border-cyan-300/25 bg-white/5 px-5 py-4 font-bold text-cyan-50 transition hover:-translate-y-0.5">
-              Try sample
-            </button>
-          </div>
-          <p className="mt-3 text-sm font-semibold text-cyan-100/80">{status}</p>
-          <p className="mt-2 text-xs leading-5 text-cyan-100/55">
-            Free Study Mode is on by default, so students can use Kairo without creating an AI bill. For public deployment, connect hosted auth before adding any paid AI option.
-          </p>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }} className="rounded-[2rem] border border-black/8 bg-white/88 p-4 text-left shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80 sm:p-6">
+            <div className="rounded-[1.5rem] border border-dashed border-slate-300 bg-[#faf7f2] p-5 text-center dark:border-white/10 dark:bg-slate-950/60">
+              <input id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
+              <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-full bg-slate-900 px-6 py-4 text-sm font-extrabold text-white transition hover:-translate-y-0.5 dark:bg-cyan-200 dark:text-slate-950">
+                <FileUp className="h-5 w-5" />
+                Upload notes
+              </label>
+              <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">Supports TXT, PDF, and DOCX. Paste longer notes below for stronger results.</p>
+            </div>
+
+            <textarea
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
+              placeholder={starterNotes}
+              className="mt-4 min-h-[270px] w-full resize-y rounded-[1.5rem] border border-slate-200 bg-[#faf7f2] p-5 text-base leading-7 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200 dark:border-white/10 dark:bg-slate-950/70 dark:placeholder:text-slate-500 sm:text-lg"
+            />
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <button onClick={generateGuide} disabled={loading} className="touch-target inline-flex flex-1 items-center justify-center gap-3 rounded-2xl bg-slate-900 px-6 py-4 text-base font-extrabold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-cyan-200 dark:text-slate-950">
+                <Sparkles className="h-5 w-5" />
+                {loading ? 'Generating...' : 'Generate Study Guide'}
+              </button>
+              <button onClick={() => setNotes(starterNotes)} className="touch-target rounded-2xl border border-slate-200 bg-white px-5 py-4 font-bold transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/5">
+                Try sample
+              </button>
+            </div>
+            <p className="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-300">{status}</p>
+            <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+              Free Study Mode is on by default, so students can use Kairo without creating an AI bill. For public deployment, connect hosted auth before adding any paid AI option.
+            </p>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -279,18 +290,18 @@ function AuthGate({ onAuthenticated }) {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020b16] text-cyan-50">
-      <CyberBackground />
+    <main className="relative min-h-screen overflow-hidden bg-[#f5f1ea] text-slate-900 dark:bg-[#111827] dark:text-slate-50">
+      <WorkspaceBackground />
       <section className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
         <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="text-center lg:text-left">
-          <div className="mx-auto mb-6 grid h-28 w-28 place-items-center rounded-[2rem] border border-cyan-300/50 bg-cyan-300/10 shadow-[0_0_70px_rgba(14,165,233,0.8)] backdrop-blur lg:mx-0">
-            <span className="font-cyber text-7xl font-black text-white drop-shadow-[0_0_24px_rgba(125,211,252,1)]">K</span>
+          <div className="mx-auto mb-6 grid h-20 w-20 place-items-center rounded-[1.75rem] bg-slate-900 text-3xl font-black text-white lg:mx-0 dark:bg-cyan-200 dark:text-slate-950">
+            K
           </div>
-          <p className="text-xs font-bold uppercase tracking-[0.55em] text-cyan-200/80">Free Study Mode Generator</p>
-          <h1 className="mt-4 font-cyber text-5xl font-black tracking-wide text-white drop-shadow-[0_0_24px_rgba(56,189,248,0.8)] sm:text-7xl">
+          <p className="text-xs font-bold uppercase tracking-[0.38em] text-slate-500 dark:text-slate-400">Free Study Mode</p>
+          <h1 className="mt-4 text-5xl font-black tracking-tight sm:text-7xl">
             Kairo Scholar
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-cyan-100/75">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
             A protected free study workspace where each learner signs in before generating study guides, summaries, flashcards, quizzes, and key concepts.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -300,30 +311,30 @@ function AuthGate({ onAuthenticated }) {
           </div>
         </motion.div>
 
-        <motion.form initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }} onSubmit={submit} className="rounded-[2rem] border border-cyan-300/25 bg-slate-950/78 p-6 shadow-[0_0_60px_rgba(14,165,233,0.24)] backdrop-blur-xl sm:p-8">
-          <div className="flex rounded-2xl border border-cyan-300/20 bg-black/40 p-1">
-            <button type="button" onClick={() => setMode('login')} className={`flex-1 rounded-xl px-4 py-3 font-bold transition ${mode === 'login' ? 'bg-cyan-400/20 text-white shadow-[0_0_20px_rgba(14,165,233,0.35)]' : 'text-cyan-100/60'}`}>Sign in</button>
-            <button type="button" onClick={() => setMode('register')} className={`flex-1 rounded-xl px-4 py-3 font-bold transition ${mode === 'register' ? 'bg-cyan-400/20 text-white shadow-[0_0_20px_rgba(14,165,233,0.35)]' : 'text-cyan-100/60'}`}>Create account</button>
+        <motion.form initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }} onSubmit={submit} className="rounded-[2rem] border border-black/8 bg-white/88 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/80 sm:p-8">
+          <div className="flex rounded-2xl border border-slate-200 bg-[#faf7f2] p-1 dark:border-white/10 dark:bg-slate-950/70">
+            <button type="button" onClick={() => setMode('login')} className={`flex-1 rounded-xl px-4 py-3 font-bold transition ${mode === 'login' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>Sign in</button>
+            <button type="button" onClick={() => setMode('register')} className={`flex-1 rounded-xl px-4 py-3 font-bold transition ${mode === 'register' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>Create account</button>
           </div>
 
-          <label className="mt-6 block text-sm font-bold text-cyan-100/80">Email or username</label>
-          <div className="mt-2 flex items-center gap-3 rounded-2xl border border-cyan-300/20 bg-black/35 px-4 py-3">
-            <User className="h-5 w-5 text-cyan-200/70" />
-            <input value={username} onChange={(event) => setUsername(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-cyan-100/35" placeholder="student@email.com" autoComplete="username" />
+          <label className="mt-6 block text-sm font-bold text-slate-700 dark:text-slate-300">Email or username</label>
+          <div className="mt-2 flex items-center gap-3 rounded-2xl border border-slate-200 bg-[#faf7f2] px-4 py-3 dark:border-white/10 dark:bg-slate-950/70">
+            <User className="h-5 w-5 text-slate-400" />
+            <input value={username} onChange={(event) => setUsername(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="student@email.com" autoComplete="username" />
           </div>
 
-          <label className="mt-5 block text-sm font-bold text-cyan-100/80">Password</label>
-          <div className="mt-2 flex items-center gap-3 rounded-2xl border border-cyan-300/20 bg-black/35 px-4 py-3">
-            <LockKeyhole className="h-5 w-5 text-cyan-200/70" />
-            <input value={password} onChange={(event) => setPassword(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-cyan-100/35" placeholder="8+ characters" type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} />
+          <label className="mt-5 block text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
+          <div className="mt-2 flex items-center gap-3 rounded-2xl border border-slate-200 bg-[#faf7f2] px-4 py-3 dark:border-white/10 dark:bg-slate-950/70">
+            <LockKeyhole className="h-5 w-5 text-slate-400" />
+            <input value={password} onChange={(event) => setPassword(event.target.value)} className="w-full bg-transparent outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="8+ characters" type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} />
           </div>
 
-          <button disabled={busy} className="mt-6 touch-target w-full rounded-2xl border border-cyan-200/70 bg-cyan-400/20 px-6 py-4 font-extrabold text-white shadow-[0_0_34px_rgba(14,165,233,0.38)] transition hover:-translate-y-0.5 hover:bg-cyan-400/30 disabled:opacity-60">
+          <button disabled={busy} className="mt-6 touch-target w-full rounded-2xl bg-slate-900 px-6 py-4 font-extrabold text-white transition hover:-translate-y-0.5 disabled:opacity-60 dark:bg-cyan-200 dark:text-slate-950">
             {busy ? 'Working...' : mode === 'register' ? 'Create Kairo account' : 'Enter Kairo Scholar'}
           </button>
 
-          <p className="mt-4 text-sm leading-6 text-cyan-100/65">{message}</p>
-          <p className="mt-3 rounded-2xl border border-amber-300/25 bg-amber-300/10 p-4 text-xs leading-5 text-amber-100/85">
+          <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{message}</p>
+          <p className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-xs leading-5 text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-100">
             Security note: this prototype login separates local users. Before public launch, use hosted authentication such as Supabase, Clerk, or Auth0. Paid AI is disabled by default to avoid surprise costs.
           </p>
         </motion.form>
@@ -332,20 +343,18 @@ function AuthGate({ onAuthenticated }) {
   );
 }
 
-function CyberBackground() {
+function WorkspaceBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#020b16]">
-      <img src="/kairo-scholar.png" alt="" className="absolute inset-0 h-full w-full object-cover opacity-45" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(14,165,233,0.32),transparent_28%),linear-gradient(180deg,rgba(2,11,22,0.2),rgba(2,11,22,0.94)_80%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,165,233,0.08)_1px,transparent_1px),linear-gradient(180deg,rgba(14,165,233,0.06)_1px,transparent_1px)] bg-[size:56px_56px] opacity-35" />
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#f5f1ea] dark:bg-[#111827]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(215,227,255,0.7),transparent_24%),linear-gradient(180deg,#f5f1ea,#f1ede6)] dark:bg-[radial-gradient(circle_at_top_left,rgba(30,41,59,0.9),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.12),transparent_24%),linear-gradient(180deg,#111827,#0f172a)]" />
     </div>
   );
 }
 
 function FeaturePill({ icon: Icon, label }) {
   return (
-    <div className="inline-flex min-h-16 items-center justify-center gap-3 rounded-2xl border border-cyan-300/25 bg-black/35 px-5 py-4 text-sm font-bold text-cyan-50 shadow-[0_0_24px_rgba(14,165,233,0.13)] backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-200/60">
-      <Icon className="h-5 w-5 text-cyan-200" />
+    <div className="inline-flex min-h-16 items-center justify-center gap-3 rounded-2xl border border-black/8 bg-white/80 px-5 py-4 text-sm font-bold text-slate-700 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200">
+      <Icon className="h-5 w-5 text-slate-500 dark:text-cyan-200" />
       {label}
     </div>
   );
@@ -354,8 +363,8 @@ function FeaturePill({ icon: Icon, label }) {
 function DisclaimerFooter() {
   return (
     <footer className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
-      <div className="rounded-[1.5rem] border border-cyan-300/15 bg-black/35 p-5 text-xs leading-6 text-cyan-100/60 shadow-[0_0_24px_rgba(14,165,233,0.1)] backdrop-blur">
-        <p className="font-bold uppercase tracking-[0.24em] text-cyan-200/80">Important Disclaimer</p>
+      <div className="rounded-[1.5rem] border border-black/8 bg-white/82 p-5 text-xs leading-6 text-slate-500 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-400">
+        <p className="font-bold uppercase tracking-[0.24em] text-slate-600 dark:text-slate-300">Important Disclaimer</p>
         <p className="mt-3">
           Kairo Scholar is a free study aid for learners age 13+. Do not upload private, sensitive, or confidential information.
           Only upload notes or materials you own or have permission to use. Use generated guides, flashcards, and quizzes for learning and review,
@@ -370,18 +379,18 @@ function Nav({ dark, user, onToggle, onLogout }) {
   return (
     <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
       <div className="flex items-center gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-2xl border border-cyan-300/45 bg-cyan-400/15 text-white shadow-[0_0_28px_rgba(14,165,233,0.45)]"><span className="font-cyber text-2xl font-black">K</span></div>
+        <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-900 text-white dark:bg-cyan-200 dark:text-slate-950"><span className="text-2xl font-black">K</span></div>
         <div>
-          <p className="font-cyber text-xl font-black tracking-wide text-white">Kairo Scholar</p>
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200/75">astute-hoop-vision-pro.com</p>
+          <p className="text-xl font-black tracking-tight">Kairo Scholar</p>
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">astute-hoop-vision-pro.com</p>
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <span className="hidden rounded-full border border-cyan-300/20 bg-black/35 px-4 py-2 text-sm font-bold text-cyan-100/80 sm:inline-flex">{user.username}</span>
-        <button onClick={onToggle} className="touch-target rounded-full border border-cyan-300/20 bg-black/35 p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5" aria-label="Toggle dark mode">
+        <span className="hidden rounded-full border border-black/8 bg-white/80 px-4 py-2 text-sm font-bold text-slate-600 sm:inline-flex dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-300">{user.username}</span>
+        <button onClick={onToggle} className="touch-target rounded-full border border-black/8 bg-white/80 p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900/70" aria-label="Toggle dark mode">
           {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </button>
-        <button onClick={onLogout} className="touch-target rounded-full border border-cyan-300/20 bg-black/35 p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5" aria-label="Log out">
+        <button onClick={onLogout} className="touch-target rounded-full border border-black/8 bg-white/80 p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900/70" aria-label="Log out">
           <LogOut className="h-5 w-5" />
         </button>
       </div>
@@ -390,23 +399,23 @@ function Nav({ dark, user, onToggle, onLogout }) {
 }
 
 function Stat({ icon: Icon, value, label }) {
-  return <div className="rounded-3xl border border-cyan-300/20 bg-black/35 p-4 shadow-[0_0_24px_rgba(14,165,233,0.12)] backdrop-blur"><Icon className="mb-3 h-6 w-6 text-cyan-200" /><p className="text-lg font-extrabold text-white">{value}</p><p className="text-sm text-cyan-100/62">{label}</p></div>;
+  return <div className="rounded-3xl border border-black/8 bg-white/82 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70"><Icon className="mb-3 h-6 w-6 text-slate-500 dark:text-cyan-200" /><p className="text-lg font-extrabold">{value}</p><p className="text-sm text-slate-500 dark:text-slate-400">{label}</p></div>;
 }
 
 function TimerCard({ timerLabel, running, onToggle, onReset }) {
-  return <Card><div className="flex items-center justify-between"><p className="font-bold">Study timer</p><Clock3 className="h-5 w-5 text-cyan-200" /></div><p className="mt-3 font-cyber text-5xl">{timerLabel}</p><div className="mt-4 flex gap-2"><button onClick={onToggle} className="touch-target flex-1 rounded-xl border border-cyan-200/50 bg-cyan-400/20 px-4 py-3 font-bold text-white">{running ? 'Pause' : 'Focus'}</button><button onClick={onReset} className="touch-target rounded-xl border border-cyan-300/20 px-4 py-3"><TimerReset className="h-5 w-5" /></button></div></Card>;
+  return <Card><div className="flex items-center justify-between"><p className="font-bold">Study timer</p><Clock3 className="h-5 w-5 text-slate-500 dark:text-cyan-200" /></div><p className="mt-3 text-5xl font-black tracking-tight">{timerLabel}</p><div className="mt-4 flex gap-2"><button onClick={onToggle} className="touch-target flex-1 rounded-xl bg-slate-900 px-4 py-3 font-bold text-white dark:bg-cyan-200 dark:text-slate-950">{running ? 'Pause' : 'Focus'}</button><button onClick={onReset} className="touch-target rounded-xl border border-slate-200 px-4 py-3 dark:border-white/10"><TimerReset className="h-5 w-5" /></button></div></Card>;
 }
 
 function ProgressCard({ completion }) {
-  return <Card><div className="flex items-center justify-between"><p className="font-bold">Progress tracker</p><CheckCircle2 className="h-5 w-5 text-cyan-200" /></div><div className="mt-4 h-3 rounded-full bg-white/10"><div className="h-full rounded-full bg-cyan-300 transition-all shadow-[0_0_18px_rgba(103,232,249,0.7)]" style={{ width: `${completion}%` }} /></div><p className="mt-3 text-sm font-semibold text-cyan-100/65">{completion}% study flow completed</p></Card>;
+  return <Card><div className="flex items-center justify-between"><p className="font-bold">Progress tracker</p><CheckCircle2 className="h-5 w-5 text-slate-500 dark:text-cyan-200" /></div><div className="mt-4 h-3 rounded-full bg-slate-200 dark:bg-white/10"><div className="h-full rounded-full bg-slate-900 transition-all dark:bg-cyan-300" style={{ width: `${completion}%` }} /></div><p className="mt-3 text-sm font-semibold text-slate-500 dark:text-slate-400">{completion}% study flow completed</p></Card>;
 }
 
 function SavedSessions({ sessions, onLoad }) {
-  return <Card><p className="font-bold">Previous sessions</p><div className="mt-3 space-y-2">{sessions.length ? sessions.map((session) => <button key={session.id} onClick={() => onLoad(session)} className="w-full rounded-xl border border-cyan-300/20 bg-black/20 p-3 text-left text-sm transition hover:border-cyan-200/60"><span className="line-clamp-1 font-bold">{session.title}</span><span className="text-xs text-cyan-100/45">{new Date(session.createdAt).toLocaleDateString()}</span></button>) : <p className="text-sm text-cyan-100/45">Generated guides will appear here.</p>}</div></Card>;
+  return <Card><p className="font-bold">Previous sessions</p><div className="mt-3 space-y-2">{sessions.length ? sessions.map((session) => <button key={session.id} onClick={() => onLoad(session)} className="w-full rounded-xl border border-slate-200 bg-[#faf7f2] p-3 text-left text-sm transition hover:border-slate-400 dark:border-white/10 dark:bg-slate-950/50"><span className="line-clamp-1 font-bold">{session.title}</span><span className="text-xs text-slate-500 dark:text-slate-400">{new Date(session.createdAt).toLocaleDateString()}</span></button>) : <p className="text-sm text-slate-500 dark:text-slate-400">Generated guides will appear here.</p>}</div></Card>;
 }
 
 function EmptyState() {
-  return <div className="rounded-[2rem] border border-cyan-300/20 bg-slate-950/70 p-10 text-center shadow-[0_0_42px_rgba(14,165,233,0.16)] backdrop-blur"><div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-cyan-300/10 text-cyan-200 shadow-[0_0_30px_rgba(14,165,233,0.35)]"><Flame className="h-9 w-9" /></div><h2 className="mt-6 font-cyber text-4xl">Kairo results will appear here.</h2><p className="mx-auto mt-3 max-w-xl text-cyan-100/65">Generate a guide to unlock the study guide, flashcards, practice quiz, vocabulary terms, and export tools.</p></div>;
+  return <div className="rounded-[2rem] border border-black/8 bg-white/85 p-10 text-center shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80"><div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-cyan-200"><Flame className="h-9 w-9" /></div><h2 className="mt-6 text-4xl font-black tracking-tight">Kairo results will appear here.</h2><p className="mx-auto mt-3 max-w-xl text-slate-500 dark:text-slate-400">Generate a guide to unlock the study guide, flashcards, practice quiz, vocabulary terms, and export tools.</p></div>;
 }
 
 function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers, onPdf, onHarderQuiz, onSimplify, simpleExplanation }) {
@@ -414,45 +423,45 @@ function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers
     <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       <Card large>
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
-          <div><p className="text-sm font-extrabold uppercase tracking-[0.24em] text-cyan-200/75">Results page</p><h2 className="mt-2 font-cyber text-4xl sm:text-5xl">{guide.title}</h2></div>
-          <button onClick={onPdf} className="touch-target inline-flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/60 bg-cyan-400/20 px-5 py-4 font-extrabold text-white shadow-[0_0_30px_rgba(14,165,233,0.3)] transition hover:-translate-y-0.5"><Download className="h-5 w-5" />Download PDF</button>
+          <div><p className="text-sm font-extrabold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Results page</p><h2 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">{guide.title}</h2></div>
+          <button onClick={onPdf} className="touch-target inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-4 font-extrabold text-white transition hover:-translate-y-0.5 dark:bg-cyan-200 dark:text-slate-950"><Download className="h-5 w-5" />Download PDF</button>
         </div>
       </Card>
 
       <Section title="Clean Summary" items={guide.summary.map((item) => item.text)} />
 
       <Card large>
-        <h3 className="font-cyber text-3xl">Study Guide</h3>
+        <h3 className="text-3xl font-black tracking-tight">Study Guide</h3>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
-          {guide.studyGuide.map((section, index) => <div key={`${section.heading}-${index}`} className="rounded-2xl border border-cyan-300/15 bg-black/25 p-5"><h4 className="text-xl font-extrabold">{section.heading}</h4><ul className="mt-3 space-y-2 text-cyan-100/70">{section.bullets.map((bullet, bulletIndex) => <li key={bulletIndex}>- {bullet}</li>)}</ul><button onClick={() => onSimplify(section.bullets[0])} className="mt-4 rounded-full border border-cyan-300/30 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-200">Simplify this concept</button></div>)}
+          {guide.studyGuide.map((section, index) => <div key={`${section.heading}-${index}`} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-5 dark:border-white/10 dark:bg-slate-950/50"><h4 className="text-xl font-extrabold">{section.heading}</h4><ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-300">{section.bullets.map((bullet, bulletIndex) => <li key={bulletIndex}>- {bullet}</li>)}</ul><button onClick={() => onSimplify(section.bullets[0])} className="mt-4 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-200">Simplify this concept</button></div>)}
         </div>
-        {simpleExplanation && <p className="mt-5 rounded-2xl border border-cyan-300/30 bg-cyan-300/10 p-4 font-semibold text-cyan-50">{simpleExplanation}</p>}
+        {simpleExplanation && <p className="mt-5 rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 font-semibold text-slate-700 dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-200">{simpleExplanation}</p>}
       </Card>
 
       <Card large>
-        <h3 className="font-cyber text-3xl">Flashcards</h3>
+        <h3 className="text-3xl font-black tracking-tight">Flashcards</h3>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          {guide.flashcards.map((card, index) => <button key={index} onClick={() => setActiveCard(activeCard === index ? null : index)} className="min-h-44 rounded-3xl border border-cyan-300/25 bg-cyan-400/10 p-5 text-left text-white shadow-[0_0_28px_rgba(14,165,233,0.18)] transition hover:-translate-y-1"><p className="text-xs font-extrabold uppercase tracking-[0.2em] text-cyan-200">Card {index + 1}</p><p className="mt-4 text-xl font-extrabold">{activeCard === index ? card.back : card.front}</p><p className="mt-4 text-sm opacity-75">Tap to flip</p></button>)}
+          {guide.flashcards.map((card, index) => <button key={index} onClick={() => setActiveCard(activeCard === index ? null : index)} className="min-h-44 rounded-3xl border border-slate-200 bg-[#faf7f2] p-5 text-left shadow-[0_18px_40px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 dark:border-white/10 dark:bg-slate-950/50"><p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Card {index + 1}</p><p className="mt-4 text-xl font-extrabold">{activeCard === index ? card.back : card.front}</p><p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Tap to flip</p></button>)}
         </div>
       </Card>
 
       <Card large>
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h3 className="font-cyber text-3xl">Practice Quiz</h3><button onClick={onHarderQuiz} className="touch-target inline-flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/50 bg-cyan-400/15 px-4 py-3 font-bold text-white"><RotateCcw className="h-4 w-4" />Make harder questions</button></div>
-        <div className="mt-5 space-y-4">{guide.quiz.map((item, index) => <div key={index} className="rounded-2xl border border-cyan-300/15 bg-black/25 p-5"><p className="font-extrabold">{index + 1}. {item.question}</p><div className="mt-3 grid gap-2">{item.choices.map((choice, choiceIndex) => { const letter = String.fromCharCode(65 + choiceIndex); const picked = quizAnswers[index] === letter; return <button key={letter} onClick={() => setQuizAnswers({ ...quizAnswers, [index]: letter })} className={`rounded-xl border p-3 text-left text-sm transition ${picked ? 'border-cyan-200 bg-cyan-300/15' : 'border-cyan-300/15 bg-black/20'}`}><strong>{letter}.</strong> {choice}</button>; })}</div>{quizAnswers[index] && <p className="mt-3 text-sm font-semibold text-cyan-100/65">Answer: {item.answer}. {item.explanation}</p>}</div>)}</div>
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h3 className="text-3xl font-black tracking-tight">Practice Quiz</h3><button onClick={onHarderQuiz} className="touch-target inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold dark:border-white/10 dark:bg-slate-900/70"><RotateCcw className="h-4 w-4" />Make harder questions</button></div>
+        <div className="mt-5 space-y-4">{guide.quiz.map((item, index) => <div key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-5 dark:border-white/10 dark:bg-slate-950/50"><p className="font-extrabold">{index + 1}. {item.question}</p><div className="mt-3 grid gap-2">{item.choices.map((choice, choiceIndex) => { const letter = String.fromCharCode(65 + choiceIndex); const picked = quizAnswers[index] === letter; return <button key={letter} onClick={() => setQuizAnswers({ ...quizAnswers, [index]: letter })} className={`rounded-xl border p-3 text-left text-sm transition ${picked ? 'border-slate-900 bg-white dark:border-cyan-200 dark:bg-slate-900' : 'border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900/70'}`}><strong>{letter}.</strong> {choice}</button>; })}</div>{quizAnswers[index] && <p className="mt-3 text-sm font-semibold text-slate-500 dark:text-slate-400">Answer: {item.answer}. {item.explanation}</p>}</div>)}</div>
       </Card>
 
       <Card large>
-        <h3 className="font-cyber text-3xl">Important Vocabulary</h3>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">{guide.terms.map((term, index) => <div key={index} className="rounded-2xl border border-cyan-300/15 bg-black/25 p-4"><p className="font-extrabold text-cyan-200">{term.term}</p><p className="mt-2 text-sm text-cyan-100/65">{term.definition}</p></div>)}</div>
+        <h3 className="text-3xl font-black tracking-tight">Important Vocabulary</h3>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">{guide.terms.map((term, index) => <div key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 dark:border-white/10 dark:bg-slate-950/50"><p className="font-extrabold text-slate-800 dark:text-slate-100">{term.term}</p><p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{term.definition}</p></div>)}</div>
       </Card>
     </motion.div>
   );
 }
 
 function Section({ title, items }) {
-  return <Card large><h3 className="font-cyber text-3xl">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="rounded-2xl border border-cyan-300/15 bg-black/25 p-4 text-lg leading-8 text-cyan-100/75">{item}</p>)}</div></Card>;
+  return <Card large><h3 className="text-3xl font-black tracking-tight">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 text-lg leading-8 text-slate-600 dark:border-white/10 dark:bg-slate-950/50 dark:text-slate-300">{item}</p>)}</div></Card>;
 }
 
 function Card({ children, large = false }) {
-  return <div className={`rounded-[1.6rem] border border-cyan-300/20 bg-slate-950/72 text-cyan-50 shadow-[0_0_34px_rgba(14,165,233,0.13)] backdrop-blur-xl ${large ? 'p-5 sm:p-7' : 'p-5'}`}>{children}</div>;
+  return <div className={`rounded-[1.6rem] border border-black/8 bg-white/88 text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-50 ${large ? 'p-5 sm:p-7' : 'p-5'}`}>{children}</div>;
 }

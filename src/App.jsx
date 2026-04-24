@@ -143,17 +143,17 @@ export default function App() {
         }}
       />
 
-      <section className="mx-auto grid min-h-[720px] w-full max-w-7xl gap-8 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:px-8">
+      <section className="mx-auto grid min-h-[720px] w-full max-w-7xl gap-10 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:px-8">
         <motion.aside initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
-          <div className="rounded-[2rem] border border-black/8 bg-white/85 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80">
-            <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-xl font-black text-white dark:bg-cyan-200 dark:text-slate-950">K</div>
+          <div className="p-2">
+            <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-xl font-black text-white dark:bg-cyan-200 dark:text-slate-950">K</div>
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">Free Study Workspace</p>
             <h1 className="mt-3 text-4xl font-extrabold tracking-tight">Kairo Scholar</h1>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
               A calmer notebook-style workspace for turning notes into summaries, study guides, quizzes, flashcards, and review sheets.
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+          <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
             <FeaturePill icon={BookOpen} label="Study Guide" />
             <FeaturePill icon={BrainCircuit} label="Summaries" />
             <FeaturePill icon={Save} label="Flashcards" />
@@ -162,8 +162,8 @@ export default function App() {
           </div>
         </motion.aside>
 
-        <motion.div initial={{ opacity: 0, scale: 0.98, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
-          <div className="rounded-[2rem] border border-black/8 bg-white/88 p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80 sm:p-7">
+        <motion.div initial={{ opacity: 0, scale: 0.98, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-8">
+          <div className="p-2 sm:p-3">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Start with notes or a document</p>
@@ -174,7 +174,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-[#faf7f2] p-2 dark:border-white/10 dark:bg-slate-950/70">
+            <div className="mt-6 rounded-[1.75rem] bg-[#faf7f2] p-2 dark:bg-slate-950/70">
               <div className="flex items-center gap-3">
                 <input
                   value={notes}
@@ -189,8 +189,8 @@ export default function App() {
             </div>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }} className="rounded-[2rem] border border-black/8 bg-white/88 p-4 text-left shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80 sm:p-6">
-            <div className="rounded-[1.5rem] border border-dashed border-slate-300 bg-[#faf7f2] p-5 text-center dark:border-white/10 dark:bg-slate-950/60">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }} className="border-t border-slate-200 pt-6 text-left dark:border-white/10">
+            <div className="bg-[#faf7f2] p-5 text-center dark:bg-slate-950/60">
               <input id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
               <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-full bg-slate-900 px-6 py-4 text-sm font-extrabold text-white transition hover:-translate-y-0.5 dark:bg-cyan-200 dark:text-slate-950">
                 <FileUp className="h-5 w-5" />
@@ -203,7 +203,7 @@ export default function App() {
               value={notes}
               onChange={(event) => setNotes(event.target.value)}
               placeholder={starterNotes}
-              className="mt-4 min-h-[270px] w-full resize-y rounded-[1.5rem] border border-slate-200 bg-[#faf7f2] p-5 text-base leading-7 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200 dark:border-white/10 dark:bg-slate-950/70 dark:placeholder:text-slate-500 sm:text-lg"
+              className="mt-4 min-h-[270px] w-full resize-y bg-transparent p-2 text-base leading-7 outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-500 sm:text-lg"
             />
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <button onClick={generateGuide} disabled={loading} className="touch-target inline-flex flex-1 items-center justify-center gap-3 rounded-2xl bg-slate-900 px-6 py-4 text-base font-extrabold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-cyan-200 dark:text-slate-950">
@@ -353,7 +353,7 @@ function WorkspaceBackground() {
 
 function FeaturePill({ icon: Icon, label }) {
   return (
-    <div className="inline-flex min-h-16 items-center justify-center gap-3 rounded-2xl border border-black/8 bg-white/80 px-5 py-4 text-sm font-bold text-slate-700 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200">
+    <div className="inline-flex min-h-14 items-center justify-center gap-3 px-2 py-3 text-sm font-bold text-slate-600 transition dark:text-slate-300">
       <Icon className="h-5 w-5 text-slate-500 dark:text-cyan-200" />
       {label}
     </div>
@@ -363,7 +363,7 @@ function FeaturePill({ icon: Icon, label }) {
 function DisclaimerFooter() {
   return (
     <footer className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
-      <div className="rounded-[1.5rem] border border-black/8 bg-white/82 p-5 text-xs leading-6 text-slate-500 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-400">
+      <div className="border-t border-slate-200 pt-5 text-xs leading-6 text-slate-500 dark:border-white/10 dark:text-slate-400">
         <p className="font-bold uppercase tracking-[0.24em] text-slate-600 dark:text-slate-300">Important Disclaimer</p>
         <p className="mt-3">
           Kairo Scholar is a free study aid for learners age 13+. Do not upload private, sensitive, or confidential information.
@@ -399,7 +399,7 @@ function Nav({ dark, user, onToggle, onLogout }) {
 }
 
 function Stat({ icon: Icon, value, label }) {
-  return <div className="rounded-3xl border border-black/8 bg-white/82 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70"><Icon className="mb-3 h-6 w-6 text-slate-500 dark:text-cyan-200" /><p className="text-lg font-extrabold">{value}</p><p className="text-sm text-slate-500 dark:text-slate-400">{label}</p></div>;
+  return <div className="px-1 py-3"><Icon className="mb-3 h-6 w-6 text-slate-500 dark:text-cyan-200" /><p className="text-lg font-extrabold">{value}</p><p className="text-sm text-slate-500 dark:text-slate-400">{label}</p></div>;
 }
 
 function TimerCard({ timerLabel, running, onToggle, onReset }) {
@@ -411,11 +411,11 @@ function ProgressCard({ completion }) {
 }
 
 function SavedSessions({ sessions, onLoad }) {
-  return <Card><p className="font-bold">Previous sessions</p><div className="mt-3 space-y-2">{sessions.length ? sessions.map((session) => <button key={session.id} onClick={() => onLoad(session)} className="w-full rounded-xl border border-slate-200 bg-[#faf7f2] p-3 text-left text-sm transition hover:border-slate-400 dark:border-white/10 dark:bg-slate-950/50"><span className="line-clamp-1 font-bold">{session.title}</span><span className="text-xs text-slate-500 dark:text-slate-400">{new Date(session.createdAt).toLocaleDateString()}</span></button>) : <p className="text-sm text-slate-500 dark:text-slate-400">Generated guides will appear here.</p>}</div></Card>;
+  return <Card><p className="font-bold">Previous sessions</p><div className="mt-3 space-y-2">{sessions.length ? sessions.map((session) => <button key={session.id} onClick={() => loadSessionTone(onLoad, session)} className="w-full border-b border-slate-200 pb-3 text-left text-sm transition hover:text-slate-900 dark:border-white/10 dark:hover:text-white"><span className="line-clamp-1 font-bold">{session.title}</span><span className="text-xs text-slate-500 dark:text-slate-400">{new Date(session.createdAt).toLocaleDateString()}</span></button>) : <p className="text-sm text-slate-500 dark:text-slate-400">Generated guides will appear here.</p>}</div></Card>;
 }
 
 function EmptyState() {
-  return <div className="rounded-[2rem] border border-black/8 bg-white/85 p-10 text-center shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80"><div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-cyan-200"><Flame className="h-9 w-9" /></div><h2 className="mt-6 text-4xl font-black tracking-tight">Kairo results will appear here.</h2><p className="mx-auto mt-3 max-w-xl text-slate-500 dark:text-slate-400">Generate a guide to unlock the study guide, flashcards, practice quiz, vocabulary terms, and export tools.</p></div>;
+  return <div className="py-20 text-center"><div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-cyan-200"><Flame className="h-9 w-9" /></div><h2 className="mt-6 text-4xl font-black tracking-tight">Kairo results will appear here.</h2><p className="mx-auto mt-3 max-w-xl text-slate-500 dark:text-slate-400">Generate a guide to unlock the study guide, flashcards, practice quiz, vocabulary terms, and export tools.</p></div>;
 }
 
 function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers, onPdf, onHarderQuiz, onSimplify, simpleExplanation }) {
@@ -459,9 +459,13 @@ function Results({ guide, activeCard, setActiveCard, quizAnswers, setQuizAnswers
 }
 
 function Section({ title, items }) {
-  return <Card large><h3 className="text-3xl font-black tracking-tight">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="rounded-2xl border border-slate-200 bg-[#faf7f2] p-4 text-lg leading-8 text-slate-600 dark:border-white/10 dark:bg-slate-950/50 dark:text-slate-300">{item}</p>)}</div></Card>;
+  return <Card large><h3 className="text-3xl font-black tracking-tight">{title}</h3><div className="mt-5 grid gap-3">{items.map((item, index) => <p key={index} className="border-b border-slate-200 pb-4 text-lg leading-8 text-slate-600 dark:border-white/10 dark:text-slate-300">{item}</p>)}</div></Card>;
 }
 
 function Card({ children, large = false }) {
-  return <div className={`rounded-[1.6rem] border border-black/8 bg-white/88 text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-50 ${large ? 'p-5 sm:p-7' : 'p-5'}`}>{children}</div>;
+  return <div className={`border-t border-slate-200 pt-5 text-slate-900 dark:border-white/10 dark:text-slate-50 ${large ? 'sm:pt-7' : ''}`}>{children}</div>;
+}
+
+function loadSessionTone(onLoad, session) {
+  onLoad(session);
 }

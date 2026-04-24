@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import {
-  BookOpen,
   BrainCircuit,
   CheckCircle2,
   Clock3,
@@ -18,7 +17,7 @@ import {
   TimerReset,
   User
 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { fallbackStudyGuide, makeQuizHarder, simplifyConcept } from './lib/analyzer.js';
 import { getCurrentUser, loginUser, logoutUser, registerUser } from './lib/auth.js';
 import { extractTextFromFile } from './lib/fileReaders.js';
@@ -33,6 +32,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('Ready when the notes are.');
   const [sessions, setSessions] = useState([]);
+  const [uploadedFileName, setUploadedFileName] = useState('');
   const [dark, setDark] = useState(true);
   const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
   const [activeCard, setActiveCard] = useState(null);
@@ -41,6 +41,7 @@ export default function App() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [simpleExplanation, setSimpleExplanation] = useState('');
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (currentUser) setSessions(loadSessions(currentUser.username));
@@ -69,6 +70,7 @@ export default function App() {
     try {
       const text = await extractTextFromFile(file);
       setNotes(text);
+      setUploadedFileName(file.name);
       setStatus(`Loaded ${file.name}. You can generate whenever you are ready.`);
     } catch (error) {
       setStatus(error.message);
@@ -123,6 +125,13 @@ export default function App() {
     setStatus('Quiz questions upgraded to challenge mode.');
   }
 
+  function clearUploadedFile() {
+    setUploadedFileName('');
+    setNotes('');
+    setStatus('Uploaded file removed from this browser view.');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
   const timerLabel = `${String(Math.floor(timerSeconds / 60)).padStart(2, '0')}:${String(timerSeconds % 60).padStart(2, '0')}`;
 
   if (!currentUser) {
@@ -159,18 +168,6 @@ export default function App() {
               Upload notes, paste class material, and let Kairo Scholar organize everything into a clean study workflow with summaries, concepts, practice questions, and exportable PDFs.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <ActionChip icon={BookOpen} label="Study Guide" />
-            <ActionChip icon={BrainCircuit} label="Summaries" />
-            <ActionChip icon={Save} label="Flashcards" />
-            <ActionChip icon={ShieldCheck} label="Quizzes" />
-            <ActionChip icon={Sparkles} label="Key Concepts" />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Stat icon={ShieldCheck} value="Protected" label="Separate workspaces per learner" />
-            <Stat icon={BrainCircuit} value="Free Mode" label="No paid AI calls by default" />
-            <Stat icon={Save} value="Saved" label="Stored on the current browser" />
-          </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.6 }} className="rounded-[1.8rem] border border-white/8 bg-[rgba(12,18,38,0.88)] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-6">
@@ -179,20 +176,22 @@ export default function App() {
             <p className="mt-2 text-sm text-slate-400">Drop in notes and let Kairo organize the material.</p>
           </div>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            <ModePill active icon={FileUp} label="Upload Notes" />
-            <ModePill icon={BrainCircuit} label="Generate Summary" />
-            <ModePill icon={BookOpen} label="Create Guide" />
-          </div>
-
           <div className="mt-5 space-y-4">
             <label className="block text-sm font-semibold text-slate-200">Upload study material</label>
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <input id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
+              <input ref={fileInputRef} id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
               <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-violet-500 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-[0_12px_30px_rgba(124,58,237,0.45)] transition hover:-translate-y-0.5">
                 <FileUp className="h-4 w-4" />
                 Upload TXT, PDF, or DOCX
               </label>
+              {uploadedFileName ? (
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <p className="text-sm text-slate-300">Loaded file: {uploadedFileName}</p>
+                  <button onClick={clearUploadedFile} type="button" className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-bold text-slate-200 transition hover:bg-white/[0.08]">
+                    Remove uploaded file
+                  </button>
+                </div>
+              ) : null}
               <p className="mt-3 text-sm text-slate-400">Paste text below if you do not want to upload a file.</p>
             </div>
 
@@ -359,16 +358,10 @@ function Nav({ dark, user, onToggle, onLogout }) {
     <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
       <div className="flex items-center gap-3">
         <div>
-          <p className="text-xl font-black tracking-tight text-white">Kairo Scholar</p>
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">astute-hoop-vision-pro.com</p>
+          <p className="text-[30px] font-black tracking-tight text-white sm:text-[34px]">Kairo Scholar</p>
         </div>
       </div>
-      <div className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
-        <span>Study Guides</span>
-        <span>Flashcards</span>
-        <span>Quizzes</span>
-        <span>Exports</span>
-      </div>
+      <div className="hidden md:block" />
       <div className="flex items-center gap-2">
         <span className="hidden rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-bold text-slate-200 sm:inline-flex">{user.username}</span>
         <button onClick={onToggle} className="touch-target rounded-full border border-white/10 bg-white/[0.04] p-3 shadow-sm backdrop-blur transition hover:-translate-y-0.5" aria-label="Toggle dark mode">
@@ -380,14 +373,6 @@ function Nav({ dark, user, onToggle, onLogout }) {
       </div>
     </nav>
   );
-}
-
-function ActionChip({ icon: Icon, label }) {
-  return <div className="inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-slate-200 backdrop-blur"><Icon className="h-4 w-4 text-violet-300" />{label}</div>;
-}
-
-function ModePill({ icon: Icon, label, active = false }) {
-  return <div className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold ${active ? 'border-violet-400/50 bg-violet-500/18 text-white' : 'border-white/10 bg-white/[0.04] text-slate-300'}`}><Icon className="h-4 w-4" />{label}</div>;
 }
 
 function Stat({ icon: Icon, value, label }) {

@@ -11,16 +11,17 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
+    "framer-motion": "latest",
+    "jspdf": "latest",
+    "lucide-react": "latest",
+    "mammoth": "latest",
+    "openai": "latest",
+    "pdfjs-dist": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "framer-motion": "latest",
-    "lucide-react": "latest",
-    "jspdf": "latest",
-    "pdfjs-dist": "latest",
-    "mammoth": "latest",
-    "openai": "latest"
+    "tesseract.js": "^7.0.0",
+    "typescript": "latest",
+    "vite": "latest"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",
@@ -32,4 +33,3 @@
     "tailwindcss": "latest"
   }
 }
-

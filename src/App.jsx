@@ -179,10 +179,10 @@ export default function App() {
           <div className="mt-5 space-y-4">
             <label className="block text-sm font-semibold text-slate-200">Upload study material</label>
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <input ref={fileInputRef} id="file-upload" type="file" accept=".txt,.pdf,.docx" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
+              <input ref={fileInputRef} id="file-upload" type="file" accept=".txt,.pdf,.docx,.png,.jpg,.jpeg,.webp,.bmp,.gif,image/*" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
               <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-violet-500 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-[0_12px_30px_rgba(124,58,237,0.45)] transition hover:-translate-y-0.5">
                 <FileUp className="h-4 w-4" />
-                Upload TXT, PDF, or DOCX
+                Upload notes or photo
               </label>
               {uploadedFileName ? (
                 <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -192,7 +192,7 @@ export default function App() {
                   </button>
                 </div>
               ) : null}
-              <p className="mt-3 text-sm text-slate-400">Paste text below if you do not want to upload a file.</p>
+              <p className="mt-3 text-sm text-slate-400">Supports TXT, PDF, DOCX, screenshots, and notebook photos from mobile.</p>
             </div>
 
             <label className="block text-sm font-semibold text-slate-200">Notes to transform</label>

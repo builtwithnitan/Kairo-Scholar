@@ -9,20 +9,25 @@ export async function extractTextFromFile(file) {
 }
 
 async function extractPdf(file) {
-  const pdfjs = await import('pdfjs-dist');
-  const worker = await import('pdfjs-dist/build/pdf.worker.mjs?url');
-  pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
-  const buffer = await file.arrayBuffer();
-  const pdf = await pdfjs.getDocument({ data: buffer }).promise;
-  const pages = [];
+  try {
+    const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    const worker = await import('pdfjs-dist/legacy/build/pdf.worker.mjs?url');
+    pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
+    const buffer = await file.arrayBuffer();
+    const pdf = await pdfjs.getDocument({ data: buffer }).promise;
+    const pages = [];
 
-  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
-    const page = await pdf.getPage(pageNumber);
-    const content = await page.getTextContent();
-    pages.push(content.items.map((item) => item.str).join(' '));
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+      const page = await pdf.getPage(pageNumber);
+      const content = await page.getTextContent();
+      pages.push(content.items.map((item) => item.str).join(' '));
+    }
+
+    return pages.join('\n\n');
+  } catch (error) {
+    console.error('PDF extraction failed:', error);
+    throw new Error('This PDF could not be read on this device. Try a simpler PDF, or copy and paste the text directly.');
   }
-
-  return pages.join('\n\n');
 }
 
 async function extractDocx(file) {

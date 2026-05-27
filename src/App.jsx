@@ -27,12 +27,13 @@ import { loadSessions, saveSession } from './lib/storage.js';
 const starterNotes = `Paste class notes here, or upload a TXT, PDF, or DOCX file.\n\nExample: Photosynthesis converts light energy into chemical energy. Chlorophyll absorbs light, water splits, oxygen is released, and glucose stores energy for the plant.`;
 
 export default function App() {
+  const MAX_UPLOAD_FILES = 8;
   const [notes, setNotes] = useState('');
   const [guide, setGuide] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('Ready when the notes are.');
   const [sessions, setSessions] = useState([]);
-  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [uploadedFileNames, setUploadedFileNames] = useState([]);
   const [dark, setDark] = useState(true);
   const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
   const [activeCard, setActiveCard] = useState(null);
@@ -64,14 +65,27 @@ export default function App() {
     return Math.min(100, Math.round((answered / total) * 100));
   }, [activeCard, guide, progress, quizAnswers]);
 
-  async function handleFile(file) {
-    if (!file) return;
-    setStatus(`Reading ${file.name}...`);
+  async function handleFiles(fileList) {
+    const files = Array.from(fileList || []).filter(Boolean);
+    if (!files.length) return;
+
+    const selectedFiles = files.slice(0, MAX_UPLOAD_FILES);
+    if (files.length > MAX_UPLOAD_FILES) {
+      setStatus(`Only the first ${MAX_UPLOAD_FILES} files were added this time.`);
+    } else {
+      setStatus(`Reading ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}...`);
+    }
+
     try {
-      const text = await extractTextFromFile(file);
-      setNotes(text);
-      setUploadedFileName(file.name);
-      setStatus(`Loaded ${file.name}. You can generate whenever you are ready.`);
+      const extracted = await Promise.all(
+        selectedFiles.map(async (file, index) => {
+          const text = await extractTextFromFile(file);
+          return `Source ${index + 1}: ${file.name}\n${text.trim()}`;
+        })
+      );
+      setNotes(extracted.join('\n\n---\n\n'));
+      setUploadedFileNames(selectedFiles.map((file) => file.name));
+      setStatus(`Loaded ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}. You can generate whenever you are ready.`);
     } catch (error) {
       setStatus(error.message);
     }
@@ -126,9 +140,9 @@ export default function App() {
   }
 
   function clearUploadedFile() {
-    setUploadedFileName('');
+    setUploadedFileNames([]);
     setNotes('');
-    setStatus('Uploaded file removed from this browser view.');
+    setStatus('Uploaded files removed from this browser view.');
     if (fileInputRef.current) fileInputRef.current.value = '';
   }
 
@@ -179,20 +193,27 @@ export default function App() {
           <div className="mt-5 space-y-4">
             <label className="block text-sm font-semibold text-slate-200">Upload study material</label>
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <input ref={fileInputRef} id="file-upload" type="file" accept=".txt,.pdf,.docx,.png,.jpg,.jpeg,.webp,.bmp,.gif,image/*" className="hidden" onChange={(event) => handleFile(event.target.files?.[0])} />
+              <input ref={fileInputRef} id="file-upload" type="file" multiple accept=".txt,.pdf,.docx,.png,.jpg,.jpeg,.webp,.bmp,.gif,image/*" className="hidden" onChange={(event) => handleFiles(event.target.files)} />
               <label htmlFor="file-upload" className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-violet-500 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-[0_12px_30px_rgba(124,58,237,0.45)] transition hover:-translate-y-0.5">
                 <FileUp className="h-4 w-4" />
-                Upload notes or photo
+                Upload notes or photos
               </label>
-              {uploadedFileName ? (
+              {uploadedFileNames.length ? (
                 <div className="mt-3 flex flex-wrap items-center gap-3">
-                  <p className="text-sm text-slate-300">Loaded file: {uploadedFileName}</p>
+                  <p className="text-sm text-slate-300">Loaded {uploadedFileNames.length} file{uploadedFileNames.length === 1 ? '' : 's'}:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {uploadedFileNames.map((name) => (
+                      <span key={name} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-slate-300">
+                        {name}
+                      </span>
+                    ))}
+                  </div>
                   <button onClick={clearUploadedFile} type="button" className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-bold text-slate-200 transition hover:bg-white/[0.08]">
-                    Remove uploaded file
+                    Remove uploaded files
                   </button>
                 </div>
               ) : null}
-              <p className="mt-3 text-sm text-slate-400">Supports TXT, PDF, DOCX, screenshots, and notebook photos from mobile.</p>
+              <p className="mt-3 text-sm text-slate-400">Supports TXT, PDF, DOCX, screenshots, and notebook photos from mobile. Upload up to 8 files at once.</p>
             </div>
 
             <label className="block text-sm font-semibold text-slate-200">Notes to transform</label>
@@ -358,7 +379,7 @@ function Nav({ dark, user, onToggle, onLogout }) {
     <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
       <div className="flex items-center gap-3">
         <div>
-          <p className="text-[30px] font-black tracking-tight text-white sm:text-[34px]">Kairo Scholar</p>
+          <p className="text-[36px] font-black tracking-tight text-white sm:text-[44px]">Kairo Scholar</p>
         </div>
       </div>
       <div className="hidden md:block" />
